@@ -5,6 +5,7 @@ module.exports = {
   theme: {
   	extend: {
       fontFamily: {
+        figtree: ['var(--font-figtree)'],
         poppins: ['var(--font-poppins)'],
       },
   		borderRadius: {

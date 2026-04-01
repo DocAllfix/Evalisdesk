@@ -137,8 +137,8 @@ export default function Pratiche() {
                     </td>
                     <td className="px-3 py-2.5">
                       <div>
-                        <p className="text-sm font-semibold text-foreground leading-tight">{p.clientName}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">{p.id}</p>
+                        <p className="text-[14px] leading-[18px] font-semibold text-foreground">{p.clientName}</p>
+                        <p className="text-[12px] text-muted-foreground mt-0.5 font-figtree">{p.id}</p>
                       </div>
                     </td>
                     <td className="px-3 py-2.5">

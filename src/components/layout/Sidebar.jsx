@@ -40,7 +40,7 @@ export default function Sidebar({ onOpenNotifications }) {
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-4 bg-sidebar-primary rounded-r-full" />
         )}
         <Icon className="w-4 h-4 shrink-0" />
-        {!collapsed && <span className="text-sm font-medium truncate">{item.label}</span>}
+        {!collapsed && <span className="text-[14px] leading-5 font-figtree truncate" style={{fontWeight: isActive ? 600 : 400}}>{item.label}</span>}
       </Link>
     );
 
@@ -59,7 +59,7 @@ export default function Sidebar({ onOpenNotifications }) {
     <TooltipProvider delayDuration={100}>
       <aside
         className={`fixed left-0 top-0 h-screen bg-sidebar border-r border-sidebar-border flex flex-col z-40 transition-all duration-300 ${
-          collapsed ? "w-[56px]" : "w-[220px]"
+          collapsed ? "w-[56px]" : "w-[255px]"
         }`}
       >
         {/* Logo / Workspace */}

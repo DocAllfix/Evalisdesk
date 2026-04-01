@@ -27,9 +27,9 @@ export default function Header({ onOpenNotifications }) {
   const title = pathKey ? PAGE_TITLES[pathKey] : "";
 
   return (
-    <header className="h-14 bg-card border-b border-border flex items-center justify-between px-5 shrink-0 sticky top-0 z-30">
+    <header className="h-12 bg-card border-b border-border flex items-center justify-between px-5 shrink-0 sticky top-0 z-30">
       <div className="flex items-center gap-3">
-        <h1 className="text-base font-bold text-foreground">{title}</h1>
+        <h1 className="text-2xl font-poppins font-medium text-foreground leading-[34px]">{title}</h1>
       </div>
 
       <div className="flex items-center gap-2">

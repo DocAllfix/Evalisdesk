@@ -11,7 +11,7 @@ export default function AppLayout() {
     <div className="min-h-screen bg-background font-poppins flex">
       <Sidebar onOpenNotifications={() => setNotificationsOpen(true)} />
       {/* Main content — offset by sidebar (220px open, 56px collapsed — handled via CSS var or fixed margin) */}
-      <div className="flex-1 flex flex-col min-h-screen pl-[220px] transition-all duration-300" id="main-content">
+      <div className="flex-1 flex flex-col min-h-screen pl-[255px] transition-all duration-300" id="main-content">
         <Header onOpenNotifications={() => setNotificationsOpen(true)} />
         <main className="flex-1 p-6 overflow-x-hidden">
           <Outlet />
