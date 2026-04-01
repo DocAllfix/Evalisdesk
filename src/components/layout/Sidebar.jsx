@@ -64,12 +64,12 @@ export default function Sidebar({ onOpenNotifications }) {
       >
         {/* Logo / Workspace */}
         <div className={`flex items-center gap-2.5 h-14 border-b border-sidebar-border shrink-0 ${collapsed ? "px-3 justify-center" : "px-4"}`}>
-          <div className="w-7 h-7 rounded-md bg-sidebar-primary flex items-center justify-center shrink-0">
-            <span className="text-sidebar-primary-foreground font-bold text-sm">C</span>
+          <div className="w-7 h-7 rounded-md bg-white flex items-center justify-center shrink-0 overflow-hidden">
+            <img src="https://media.base44.com/images/public/69ccd48fcbeffb9e9082bb7d/ea897fee2_logo-evalispng.jpg" alt="Evalis logo" className="w-full h-full object-contain" />
           </div>
           {!collapsed && (
             <div className="min-w-0">
-              <p className="text-sidebar-accent-foreground font-semibold text-sm leading-tight truncate">CertDesk</p>
+              <p className="text-sidebar-accent-foreground font-semibold text-sm leading-tight truncate">EvalisDesk</p>
               <p className="text-sidebar-foreground text-[10px] truncate">Certification CRM</p>
             </div>
           )}
