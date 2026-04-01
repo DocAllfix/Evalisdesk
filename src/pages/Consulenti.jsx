@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import NormeMultiSelect from "@/components/shared/NormeMultiSelect.jsx";
+import NormeMultiSelect from "@/components/shared/NormeMultiSelect";
 
 const ROLE_COLORS = {
   Admin: "bg-primary/10 text-primary border-primary/20",
