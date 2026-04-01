@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { NOTIFICATIONS } from "@/lib/mockData";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import ConnectionIndicator from "@/components/layout/ConnectionIndicator";
 
 const NAV_ITEMS = [
   { path: "/", label: "Dashboard", icon: LayoutDashboard },
@@ -133,6 +134,9 @@ export default function Sidebar({ onOpenNotifications }) {
               </button>
             </>
           )}
+
+          {/* Connection Indicator */}
+          <ConnectionIndicator collapsed={collapsed} />
 
           {/* User */}
           <div className={`flex items-center gap-2.5 px-3 py-2.5 mt-1 rounded-md bg-sidebar-accent/40 ${collapsed ? "justify-center" : ""}`}>
