@@ -1,56 +1,64 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ChevronRight, AlertTriangle, Sparkles } from "lucide-react";
+import { AlertTriangle, Calendar, MessageSquare, Copy } from "lucide-react";
 import UrgencyBadge from "@/components/shared/UrgencyBadge";
 
-export default function PipelineCard({ pratica }) {
+export default function PipelineCard({ pratica, phaseColor }) {
   const isMissingDocs = pratica.phase === 4 && !pratica.documents.documentsReceived;
 
   return (
     <Link
       to={`/pratiche/${pratica.id}`}
-      className={`block bg-card rounded-xl border p-4 hover:shadow-md transition-all duration-200 group ${
-        isMissingDocs ? "border-l-[3px] border-l-destructive border-t-border border-r-border border-b-border" : "border-border"
-      }`}
+      className="block bg-card rounded-lg border border-border hover:shadow-md hover:border-border/80 transition-all duration-150 group overflow-hidden"
     >
-      <div className="flex items-start justify-between mb-3">
-        <h4 className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
-          {pratica.clientName}
-        </h4>
-        <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
-      </div>
+      {/* Left colored accent bar */}
+      <div className="flex">
+        <div className={`w-1 shrink-0 ${phaseColor}`} />
+        <div className="flex-1 p-3">
+          {/* Client name */}
+          <p className="text-sm font-semibold text-foreground leading-tight group-hover:text-primary transition-colors truncate mb-2">
+            {pratica.clientName}
+          </p>
 
-      <div className="flex flex-wrap gap-1.5 mb-3">
-        {pratica.norms.map((n) => (
-          <span key={n} className="text-[11px] bg-muted px-2 py-0.5 rounded-md text-muted-foreground font-medium">
-            {n}
-          </span>
-        ))}
-        {pratica.norms.length > 1 && (
-          <span className="text-[11px] bg-secondary/10 text-secondary px-2 py-0.5 rounded-md font-medium flex items-center gap-0.5">
-            <Sparkles className="w-2.5 h-2.5" />
-            Integrato
-          </span>
-        )}
-      </div>
+          {/* Tags row */}
+          <div className="flex flex-wrap gap-1 mb-2.5">
+            {pratica.norms.map((n) => (
+              <span key={n} className="text-[11px] bg-muted/80 px-1.5 py-0.5 rounded text-muted-foreground font-medium">
+                {n}
+              </span>
+            ))}
+            <span className="text-[11px] bg-muted/60 px-1.5 py-0.5 rounded text-muted-foreground">
+              {pratica.cycle}
+            </span>
+          </div>
 
-      <div className="flex items-center justify-between">
-        <span className="text-xs text-muted-foreground">{pratica.cycle}</span>
-        <UrgencyBadge deadline={pratica.deadline} />
-      </div>
+          {/* Deadline + urgency */}
+          {pratica.deadline && (
+            <div className="flex items-center gap-1.5 mb-2">
+              <Calendar className="w-3 h-3 text-muted-foreground" />
+              <UrgencyBadge deadline={pratica.deadline} />
+            </div>
+          )}
 
-      {isMissingDocs && (
-        <div className="flex items-center gap-1.5 mt-3 px-2 py-1.5 rounded-md bg-destructive/5 border border-destructive/10">
-          <AlertTriangle className="w-3 h-3 text-destructive" />
-          <span className="text-[11px] font-medium text-destructive">Documenti mancanti</span>
+          {/* Missing docs warning */}
+          {isMissingDocs && (
+            <div className="flex items-center gap-1.5 mb-2 px-2 py-1 rounded bg-destructive/10 border border-destructive/20">
+              <AlertTriangle className="w-3 h-3 text-destructive shrink-0" />
+              <span className="text-[11px] font-medium text-destructive">Doc. mancanti</span>
+            </div>
+          )}
+
+          {/* Footer */}
+          <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/40">
+            <div className="w-6 h-6 rounded-full bg-primary flex items-center justify-center">
+              <span className="text-[9px] font-bold text-primary-foreground">{pratica.assignedTo.initials}</span>
+            </div>
+            <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <MessageSquare className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+              <Copy className="w-3.5 h-3.5 text-muted-foreground hover:text-foreground" />
+            </div>
+          </div>
         </div>
-      )}
-
-      <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/50">
-        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
-          <span className="text-[9px] font-semibold text-primary">{pratica.assignedTo.initials}</span>
-        </div>
-        <span className="text-xs text-muted-foreground">{pratica.assignedTo.name.split(" ")[0]}</span>
       </div>
     </Link>
   );

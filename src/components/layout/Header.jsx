@@ -27,45 +27,49 @@ export default function Header({ onOpenNotifications }) {
   const title = pathKey ? PAGE_TITLES[pathKey] : "";
 
   return (
-    <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6 shrink-0 sticky top-0 z-30">
-      <div className="flex items-center gap-4">
-        <h1 className="text-lg font-semibold text-foreground">{title}</h1>
+    <header className="h-14 bg-card border-b border-border flex items-center justify-between px-5 shrink-0 sticky top-0 z-30">
+      <div className="flex items-center gap-3">
+        <h1 className="text-base font-bold text-foreground">{title}</h1>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2">
+        {/* Search */}
         <div className="relative hidden md:block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
           <Input
             placeholder="Cerca pratica, cliente..."
-            className="w-64 pl-9 h-9 bg-muted/50 border-transparent focus:border-primary/30 focus:bg-card transition-colors"
+            className="w-52 pl-8 h-8 bg-muted/40 border-border/60 text-sm focus:border-primary/40 focus:bg-card transition-colors"
           />
         </div>
 
+        {/* Theme toggle */}
         <Button
           variant="ghost"
           size="icon"
-          className="relative text-muted-foreground hover:text-foreground"
+          onClick={toggleTheme}
+          className="w-8 h-8 text-muted-foreground hover:text-foreground"
+        >
+          {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+        </Button>
+
+        {/* Notifications */}
+        <Button
+          variant="ghost"
+          size="icon"
+          className="relative w-8 h-8 text-muted-foreground hover:text-foreground"
           onClick={onOpenNotifications}
         >
-          <Bell className="w-[18px] h-[18px]" />
+          <Bell className="w-4 h-4" />
           {unreadCount > 0 && (
-            <span className="absolute top-1 right-1 w-4 h-4 bg-destructive text-destructive-foreground text-[10px] font-bold rounded-full flex items-center justify-center">
+            <span className="absolute top-0.5 right-0.5 w-4 h-4 bg-destructive text-destructive-foreground text-[9px] font-bold rounded-full flex items-center justify-center">
               {unreadCount}
             </span>
           )}
         </Button>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          className="text-muted-foreground hover:text-foreground"
-        >
-          {theme === "dark" ? <Sun className="w-[18px] h-[18px]" /> : <Moon className="w-[18px] h-[18px]" />}
-        </Button>
-
-        <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors">
-          <span className="text-primary text-xs font-semibold">MR</span>
+        {/* Avatar */}
+        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity">
+          <span className="text-primary-foreground text-xs font-bold">MR</span>
         </div>
       </div>
     </header>
