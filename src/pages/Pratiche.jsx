@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { PRATICHE, PHASES, TEAM, getDaysRemaining } from "@/lib/mockData";
 import UrgencyBadge from "@/components/shared/UrgencyBadge";
 import DocumentChecklist from "@/components/shared/DocumentChecklist";
+import PraticaModal from "@/components/dettaglio/PraticaModal";
 
 const PHASE_CELL_COLORS = {
   1: "bg-phase-1 text-white",
@@ -29,6 +30,7 @@ export default function Pratiche() {
   const [phaseFilter, setPhaseFilter] = useState("all");
   const [normFilter, setNormFilter] = useState("all");
   const [tab, setTab] = useState("active");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const allNorms = [...new Set(PRATICHE.flatMap((p) => p.norms))].sort();
 
@@ -45,7 +47,7 @@ export default function Pratiche() {
     <div className="space-y-0 max-w-[1600px]">
       {/* Top toolbar — monday-style */}
       <div className="flex items-center gap-2 mb-4 flex-wrap">
-        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-8 px-4 text-sm font-medium rounded-md">
+        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-8 px-4 text-sm font-medium rounded-md" onClick={() => setModalOpen(true)}>
           <Plus className="w-3.5 h-3.5 mr-1.5" />
           Nuova Pratica
         </Button>
@@ -211,6 +213,7 @@ export default function Pratiche() {
           </div>
         )}
       </div>
+      <PraticaModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 }

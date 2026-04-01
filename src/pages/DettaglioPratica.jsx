@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { PRATICHE } from "@/lib/mockData";
 import PraticaHeader from "@/components/dettaglio/PraticaHeader";
 import PhaseStepper from "@/components/shared/PhaseStepper";
 import InfoSection from "@/components/dettaglio/InfoSection";
 import CommunicationFeed from "@/components/dettaglio/CommunicationFeed";
 import RightPanel from "@/components/dettaglio/RightPanel";
+import AvanzaFaseModal from "@/components/dettaglio/AvanzaFaseModal";
+import BloccoDocumentiAlert from "@/components/dettaglio/BloccoDocumentiAlert";
+import StatoPraticaBanner from "@/components/dettaglio/StatoPraticaBanner";
 
 export default function DettaglioPratica() {
-  const urlParams = new URLSearchParams(window.location.search);
+  const [avanzaOpen, setAvanzaOpen] = useState(false);
   const path = window.location.pathname;
   const praticaId = path.split("/pratiche/")[1];
   const pratica = PRATICHE.find((p) => p.id === praticaId);
@@ -20,9 +23,15 @@ export default function DettaglioPratica() {
     );
   }
 
+  const hasMissingDocs = Object.values(pratica.documents).some((v) => !v);
+
   return (
     <div className="space-y-5 max-w-[1400px]">
-      <PraticaHeader pratica={pratica} />
+      {/* Status banners */}
+      {pratica.status && <StatoPraticaBanner status={pratica.status} />}
+      {hasMissingDocs && <BloccoDocumentiAlert documents={pratica.documents} />}
+
+      <PraticaHeader pratica={pratica} onAvanza={() => setAvanzaOpen(true)} />
 
       {/* Phase Stepper */}
       <div className="bg-card rounded-xl border border-border p-5">
@@ -39,6 +48,8 @@ export default function DettaglioPratica() {
           <RightPanel pratica={pratica} />
         </div>
       </div>
+
+      <AvanzaFaseModal open={avanzaOpen} onClose={() => setAvanzaOpen(false)} pratica={pratica} />
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import PhaseBadge from "@/components/shared/PhaseBadge";
 import { PHASES } from "@/lib/mockData";
 
-export default function PraticaHeader({ pratica }) {
+export default function PraticaHeader({ pratica, onAvanza }) {
   const currentPhase = PHASES.find((p) => p.id === pratica.phase);
   const nextPhase = PHASES.find((p) => p.id === pratica.phase + 1);
 
@@ -39,7 +39,7 @@ export default function PraticaHeader({ pratica }) {
           </div>
         </div>
         {nextPhase && (
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm">
+          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm" onClick={onAvanza}>
             Avanza a {nextPhase.short}
             <ChevronRight className="w-4 h-4 ml-1" />
           </Button>
