@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AlertTriangle, Clock, CheckCircle, ExternalLink } from "lucide-react";
 import { PRATICHE, getDaysRemaining, getUrgencyLevel } from "@/lib/mockData";
@@ -8,7 +8,14 @@ import UrgencyBadge from "@/components/shared/UrgencyBadge";
 import DocumentChecklist from "@/components/shared/DocumentChecklist";
 
 export default function Scadenze() {
-  const active = PRATICHE.filter((p) => !p.completed);
+  const [pratiche, setPratiche] = useState(PRATICHE.filter((p) => !p.completed));
+  const active = pratiche;
+
+  const handleDocToggle = (praticaId, key, newVal) => {
+    setPratiche((prev) =>
+      prev.map((p) => p.id === praticaId ? { ...p, documents: { ...p.documents, [key]: newVal } } : p)
+    );
+  };
   const criticalCount = active.filter((p) => getDaysRemaining(p.deadline) <= 15).length;
   const warningCount = active.filter((p) => {
     const d = getDaysRemaining(p.deadline);
@@ -86,7 +93,7 @@ export default function Scadenze() {
                       <PhaseBadge phase={p.phase} short />
                     </td>
                     <td className="px-5 py-3.5">
-                      <DocumentChecklist documents={p.documents} compact />
+                      <DocumentChecklist documents={p.documents} compact interactive onToggle={(key, val) => handleDocToggle(p.id, key, val)} />
                     </td>
                     <td className="px-5 py-3.5">
                       <UrgencyBadge deadline={p.deadline} />

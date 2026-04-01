@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Search, X, AlertTriangle } from "lucide-react";
+import { Search, X, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 
 const ALL_NORME = [
-  "ISO 9001", "ISO 14001", "ISO 45001", "ISO 27001", "ISO 50001",
-  "ISO 22000", "ISO 13485", "ISO 17025", "ISO 15189", "ISO 22301",
-  "ISO 20000-1", "ISO 37001", "ISO 39001", "ISO 55001", "SA 8000",
-  "EMAS", "GDPR",
+  "ISO 9001", "ISO 14001", "ISO 45001", "SA 8000", "PAS 24000",
+  "PDR 125/2022", "ESG-EASI", "ISO 37001", "ISO 39001", "ISO 50001",
+  "ISO 27001", "ISO 14064-1", "ISO 30415", "ISO 13009", "ISO 20121",
+  "EN 1090", "ISO 3834",
 ];
 
 export default function NormeMultiSelect({ value = [], onChange }) {
@@ -41,9 +41,9 @@ export default function NormeMultiSelect({ value = [], onChange }) {
 
       {/* Integrated Audit banner */}
       {isIntegrated && (
-        <div className="flex items-center gap-2 bg-warning/10 border border-warning/20 rounded-lg px-3 py-2 text-xs text-warning">
-          <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
-          Audit integrato: verranno gestiti {value.length} standard insieme
+        <div className="flex items-center gap-2 bg-secondary/10 border border-secondary/30 rounded-lg px-3 py-2.5 text-xs text-secondary font-semibold">
+          <Sparkles className="w-3.5 h-3.5 shrink-0" />
+          ✦ Audit Integrato: {value.join(" + ")}
         </div>
       )}
 

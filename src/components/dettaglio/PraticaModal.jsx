@@ -6,10 +6,12 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { TEAM, CLIENTS } from "@/lib/mockData";
 import NormeMultiSelect from "@/components/shared/NormeMultiSelect";
+import QuickAddCliente from "@/components/clienti/QuickAddCliente";
 
 const CYCLES = ["Certificazione", "Ricertificazione", "Prima Sorveglianza", "Seconda Sorveglianza"];
 
 export default function PraticaModal({ open, onClose }) {
+  const [tipoContatto, setTipoContatto] = useState("consulente");
   const [form, setForm] = useState({
     clientId: "",
     norme: [],
@@ -42,7 +44,54 @@ export default function PraticaModal({ open, onClose }) {
                   ))}
                 </SelectContent>
               </Select>
+              <div className="mt-2">
+                <QuickAddCliente onClienteCreato={(c) => set("clientId", String(c.id))} />
+              </div>
             </div>
+          </div>
+
+          {/* Tipo Contatto */}
+          <div>
+            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 pb-2 border-b border-border/50">Tipo Contatto</p>
+            <div className="flex gap-2 mb-3">
+              <button
+                type="button"
+                onClick={() => setTipoContatto("consulente")}
+                className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition-colors ${tipoContatto === "consulente" ? "bg-primary/10 border-primary/40 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}
+              >
+                👤 Tramite Consulente
+              </button>
+              <button
+                type="button"
+                onClick={() => setTipoContatto("diretto")}
+                className={`flex-1 py-2 px-3 rounded-lg border text-sm font-medium transition-colors ${tipoContatto === "diretto" ? "bg-primary/10 border-primary/40 text-primary" : "border-border text-muted-foreground hover:border-primary/30"}`}
+              >
+                🏢 Referente Diretto
+              </button>
+            </div>
+            {tipoContatto === "consulente" ? (
+              <Select value={form.assignedTo} onValueChange={(v) => set("assignedTo", v)}>
+                <SelectTrigger><SelectValue placeholder="Seleziona consulente..." /></SelectTrigger>
+                <SelectContent>
+                  {TEAM.map((t) => <SelectItem key={t.id} value={String(t.id)}>{t.name}</SelectItem>)}
+                </SelectContent>
+              </Select>
+            ) : (
+              <div className="grid grid-cols-3 gap-2">
+                <div>
+                  <Label className="text-sm font-medium mb-1.5 block">Nome Referente</Label>
+                  <Input placeholder="Mario Rossi" value={form.referenteNome || ""} onChange={(e) => set("referenteNome", e.target.value)} />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-1.5 block">Email</Label>
+                  <Input placeholder="email@..." value={form.referenteEmail || ""} onChange={(e) => set("referenteEmail", e.target.value)} />
+                </div>
+                <div>
+                  <Label className="text-sm font-medium mb-1.5 block">Telefono</Label>
+                  <Input placeholder="+39 ..." value={form.referenteTel || ""} onChange={(e) => set("referenteTel", e.target.value)} />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Certificazione */}
@@ -69,15 +118,6 @@ export default function PraticaModal({ open, onClose }) {
           <div>
             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3 pb-2 border-b border-border/50">Assegnazione</p>
             <div className="space-y-3">
-              <div>
-                <Label className="text-sm font-medium mb-1.5 block">Assegnato a</Label>
-                <Select value={form.assignedTo} onValueChange={(v) => set("assignedTo", v)}>
-                  <SelectTrigger><SelectValue placeholder="Seleziona consulente..." /></SelectTrigger>
-                  <SelectContent>
-                    {TEAM.map((t) => <SelectItem key={t.id} value={String(t.id)}>{t.name}</SelectItem>)}
-                  </SelectContent>
-                </Select>
-              </div>
               <div>
                 <Label className="text-sm font-medium mb-1.5 block">Auditor</Label>
                 <Input placeholder="Nome auditor..." value={form.auditor} onChange={(e) => set("auditor", e.target.value)} />

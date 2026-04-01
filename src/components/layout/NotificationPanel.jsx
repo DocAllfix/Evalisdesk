@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NOTIFICATIONS } from "@/lib/mockData";
 import { Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+
 
 const TYPE_CONFIG = {
   deadline: { icon: AlertTriangle, color: "text-destructive", bg: "bg-destructive/15" },
@@ -19,24 +19,15 @@ const TABS = ["Tutti", "Menzionato", "Assegnazioni"];
 export default function NotificationPanel({ open, onClose }) {
   const [activeTab, setActiveTab] = useState("Tutti");
 
+  if (!open) return null;
+
   return (
-    <AnimatePresence>
-      {open && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-50"
-            onClick={onClose}
-          />
-          <motion.div
-            initial={{ x: "100%", opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: "100%", opacity: 0 }}
-            transition={{ type: "spring", damping: 28, stiffness: 280 }}
-            className="fixed right-0 top-0 h-screen w-[400px] bg-card border-l border-border shadow-2xl z-50 flex flex-col"
-          >
+    <>
+      <div
+        className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-50"
+        onClick={onClose}
+      />
+      <div className="fixed right-0 top-0 h-screen w-[400px] bg-card border-l border-border shadow-2xl z-50 flex flex-col">
             {/* Header */}
             <div className="px-5 pt-5 pb-0 shrink-0">
               <div className="flex items-center justify-between mb-4">
@@ -121,9 +112,7 @@ export default function NotificationPanel({ open, onClose }) {
                 })}
               </div>
             </ScrollArea>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+      </div>
+    </>
   );
 }
