@@ -6,6 +6,7 @@ import StatsCard from "@/components/shared/StatsCard";
 import DeadlinesTable from "@/components/dashboard/DeadlinesTable";
 import PhaseDistribution from "@/components/dashboard/PhaseDistribution";
 import ActivityFeed from "@/components/dashboard/ActivityFeed";
+import NormePieChart from "@/components/dashboard/NormePieChart";
 import PhaseBadge from "@/components/shared/PhaseBadge";
 import UrgencyBadge from "@/components/shared/UrgencyBadge";
 
@@ -86,8 +87,9 @@ export default function Dashboard() {
         <div className="lg:col-span-3">
           <DeadlinesTable />
         </div>
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 flex flex-col gap-6">
           <PhaseDistribution />
+          <NormePieChart />
         </div>
       </div>
 
